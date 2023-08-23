@@ -29,7 +29,7 @@ class Cursermod(loader.Module):
             translate = ts.translate_text(ts.translate_text(args, 'sogou', 'ru', 'en'), 'sogou', 'en', 'ru')
             await utils.answer(message, translate)
         except Exception:
-            await utils.answer(message, f"<emoji document_id=5465665476971471368>❌</emoji> API Error.")
+            await utils.answer(message, f"<emoji document_id=5465665476971471368>❌</emoji> Intrnal error.")
 
     @loader.command(ru_doc="Curse your text via reply")
     async def crcmd(self, message):
@@ -52,4 +52,4 @@ class Cursermod(loader.Module):
             translate = ts.translate_text(ts.translate_text(args, 'sogou', 'ru', 'en'), 'sogou', 'en', 'ru')
             await utils.answer(message, translate)
         except Exception:
-            await utils.answer(message, f"<emoji document_id=5465665476971471368>❌</emoji> API Error.")
+            await utils.answer(message, f"<emoji document_id=5465665476971471368>❌</emoji> Internal error.")
