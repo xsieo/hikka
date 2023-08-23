@@ -1,0 +1,55 @@
+# meta developer: @xsieo
+# requires: translators
+
+import translators as ts
+from .. import loader, utils
+
+@loader.tds
+class Cursermod(loader.Module):
+    """Module that will curse your text. Usage: .c <text> or .cr <reply>"""
+    async def client_ready(self, client, db) -> None:
+        self.db = db
+        self.client = client
+
+    strings = {
+        "name": "Curser",
+    }
+
+    @loader.command(ru_doc="Curse your text")
+    async def ccmd(self, message):
+        """Curse your text"""
+    
+        args = utils.get_args_raw(message)
+            
+        if not args:
+            await utils.answer(message, "<emoji document_id=5465665476971471368>❌</emoji> Missing input.")
+            return
+
+        try:
+            translate = ts.translate_text(ts.translate_text(args, 'sogou', 'ru', 'en'), 'sogou', 'en', 'ru')
+            await utils.answer(message, translate)
+        except Exception:
+            await utils.answer(message, f"<emoji document_id=5465665476971471368>❌</emoji> API Error.")
+
+    @loader.command(ru_doc="Curse your text via reply")
+    async def crcmd(self, message):
+        """Curse your text"""
+
+        if message.is_reply:
+            reply_message = await message.get_reply_message()
+            if reply_message.text:
+                args = reply_message.text
+
+            if not message.is_reply:
+                await utils.answer(message, "<emoji document_id=5465665476971471368>❌</emoji> Not a reply.")
+                return
+            
+        if not args:
+            await utils.answer(message, "<emoji document_id=5465665476971471368>❌</emoji> Missing input.")
+            return
+
+        try:
+            translate = ts.translate_text(ts.translate_text(args, 'sogou', 'ru', 'en'), 'sogou', 'en', 'ru')
+            await utils.answer(message, translate)
+        except Exception:
+            await utils.answer(message, f"<emoji document_id=5465665476971471368>❌</emoji> API Error.")
